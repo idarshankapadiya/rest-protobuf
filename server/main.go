@@ -2,16 +2,18 @@ package main
 
 import (
 	"encoding/json"
-	pb "github.com/darshankapadiya19/rest-protobuf/proto/gen"
-	"github.com/gorilla/mux"
-	"google.golang.org/protobuf/proto"
 	"io"
 	"log"
 	"net/http"
+
+	pb "github.com/darshankapadiya19/rest-protobuf/proto/gen"
+	"github.com/gorilla/mux"
+	"google.golang.org/protobuf/proto"
 )
 
 type grpcHaloHandler struct{}
 
+// grpcHaloHandler is a struct that implements the http.Handler interface
 func (h *grpcHaloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request received with content of length: %d", r.ContentLength)
 	data, err := io.ReadAll(r.Body)
@@ -38,10 +40,12 @@ func (h *grpcHaloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalf("Unable to marshal response : %v", err)
 	}
+	log.Printf("Sending response with content of length: %d", len(response))
 	w.Write(response)
 }
 
 func grpcHelloHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("==========================================================")
 	log.Printf("[Protobuf] Request received with content of length: %d", r.ContentLength)
 	data, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -59,11 +63,13 @@ func grpcHelloHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalf("Unable to marshal response : %v", err)
 	}
+	log.Printf("Sending response with content of length: %d", len(response))
 	w.Write(response)
 }
 
 func jsonHelloHandler(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Request received with content of length: %d", r.ContentLength)
+	log.Printf("==========================================================")
+	log.Printf("[Json] Request received with content of length: %d", r.ContentLength)
 	data, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Fatalf("Unable to read message from request : %v", err)
@@ -83,6 +89,7 @@ func jsonHelloHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalf("Unable to marshal response : %v", err)
 	}
+	log.Printf("Sending response with content of length: %d", len(response))
 	w.Write(response)
 }
 
@@ -90,7 +97,7 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/hello", grpcHelloHandler).Methods("POST")
+	router.HandleFunc("/grpc_hello", grpcHelloHandler).Methods("POST")
 	router.HandleFunc("/json_hello", jsonHelloHandler).Methods("POST")
 
 	haloHandler := &grpcHaloHandler{}
