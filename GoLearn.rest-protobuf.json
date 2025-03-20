@@ -108,7 +108,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/hello",
+							"raw": "http://localhost:8080/grpc_hello",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -131,7 +131,7 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "http://localhost:8080/hello",
+									"raw": "http://localhost:8080/grpc_hello",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -176,7 +176,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/hello",
+									"raw": "http://localhost:8080/grpc_hello",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -225,7 +225,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/hello",
+									"raw": "http://localhost:8080/grpc_hello",
 									"protocol": "http",
 									"host": [
 										"localhost"
